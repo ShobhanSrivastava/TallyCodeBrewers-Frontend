@@ -1,5 +1,6 @@
-function DurationSelector({ playerData, dispatch }) {
+function DurationSelector({ playerData, dispatch, cleaningFunction }) {
     function handleClick(duration) {
+        cleaningFunction();
         dispatch({type: 'CHANGE_DURATION', duration });
     }
 

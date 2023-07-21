@@ -10,8 +10,8 @@ const lightTheme = {
 
 const darkTheme = {
     themeName: 'dark',
-    primaryColor: 'black',
-    primaryTextColor: 'white'
+    primaryColor: '#000',
+    primaryTextColor: '#fff'
 }
 
 const ThemeProvider = ({ children }) => {
