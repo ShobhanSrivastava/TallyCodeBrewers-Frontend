@@ -4,14 +4,14 @@ export const ThemeContext = createContext();
 
 const lightTheme = {
     themeName: 'light',
-    primaryColor: 'white',
-    primaryTextColor: 'black'
+    primaryColor: '#FFFFFF',
+    primaryTextColor: '#000000'
 }
 
 const darkTheme = {
     themeName: 'dark',
-    primaryColor: '#000',
-    primaryTextColor: '#fff'
+    primaryColor: '#121212',
+    primaryTextColor: '#000000'
 }
 
 const ThemeProvider = ({ children }) => {

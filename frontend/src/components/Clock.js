@@ -8,8 +8,8 @@ function Clock() {
     const seconds = playerData.duration%60;
 
     return (
-        <div>
-            Clock { minutes<10 ? '0' : '' }{minutes}:{ seconds < 10 ? '0' : '' }{seconds}
+        <div className="clock">
+            { minutes<10 ? '0' : '' }{minutes}:{ seconds < 10 ? '0' : '' }{seconds}
         </div>
     );
 }

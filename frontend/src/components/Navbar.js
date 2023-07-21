@@ -1,7 +1,8 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext, useRef } from 'react';
 import Switch from 'react-switch';
 import { PlayerContext, ThemeContext } from '../context';
+
 
 function Navbar() {
     const { playerData, dispatch } = useContext(PlayerContext);
@@ -12,9 +13,9 @@ function Navbar() {
     const { mode } = playerData;
     function handleChange() {
         const path = mode === 'single' ? '/multiplayer' : '/';
+        dispatch({type: 'CHANGE_PLAYER_MODE'})
+        switchRef.current.focus();
         navigate(path);
-        dispatch({ type: 'CHANGE_MODE' })
-        // e.target.blur();
     }
 
     return (
@@ -24,7 +25,8 @@ function Navbar() {
             {/* To change the theme of the application */}
             <div onClick={toggleTheme}>{ theme.themeName === 'light' ? 'Dark' : 'Light' }</div>
 
-            Single Player
+            Solo
+            <button ref={switchRef} style={{display:'hidden', border:0}}></button>
             <Switch 
                 checked={mode === 'multi'}
                 onChange={handleChange} 
