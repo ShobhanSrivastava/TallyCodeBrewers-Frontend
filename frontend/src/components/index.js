@@ -5,3 +5,4 @@ export { default as SinglePlayerPlay } from './SinglePlayerPlay';
 export { default as Stats } from './Stats';
 export { default as Clock } from './Clock';
 export { default as Typing } from './Typing';
+export { default as SinglePlayerResult } from './SinglePlayerResult';

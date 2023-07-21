@@ -23,7 +23,6 @@ const SoloMode = () => {
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [isGameEnded, setIsGameEnded] = useState(false);
 
-
 	//Used for typing area component
   const [wordCount, setWordCount] = useState(0);
   const [typedChars, setTypedChars] = useState('');

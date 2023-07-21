@@ -3,6 +3,8 @@ import { GlobalStateProvider, ThemeProvider, PlayerProvider } from './context'
 import { SoloMode, Start } from './pages';
 import { Navbar } from './components';
 
+import './App.css'
+
 function App() {
     return (
         <ThemeProvider>

@@ -1,41 +1,77 @@
-import React from 'react';
-// import it
-import useTypingGame from 'react-typing-game-hook';
+import { useKeyPress } from '../hooks';
+import { generate } from '../utils/words';
+import { calculateWPM } from '../utils/utilFunctions';
 
-const Typing = () => {
-  // Call the hook
-  const {
-    states: { chars, charsState },
-    actions: { insertTyping, resetTyping, deleteTyping },
-  } = useTypingGame(`Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis alias libero accusantium, eos, commodi minus enim culpa pariatur, cum voluptatum fugiat aliquam laboriosam beatae quas quam facilis recusandae at expedita numquam nam excepturi quaerat natus inventore. Quidem iure cupiditate dolore odit voluptas dolorem aspernatur, iusto harum similique doloribus. Vero aspernatur officiis optio, reprehenderit error natus doloribus nisi magnam necessitatibus sapiente tempora blanditiis voluptatem, voluptates quae fugiat aut dolor inventore at corrupti nam labore placeat deleniti molestias explicabo! Cum, tenetur porro? Unde, cum asperiores! Reprehenderit soluta voluptate voluptas nobis nemo, error amet porro repudiandae suscipit repellendus aperiam natus illum! Porro, esse?`);
+function Typing({ 
+  playerData, 
+  dispatch, 
+  wordCount, 
+  setWordCount,
+  leftPadding,
+  setLeftPadding,
+  currentChar,
+  setCurrentChar,
+  incomingChars,
+  setIncomingChars,
+  typedChars,
+  setTypedChars,
+  outgoingChars,
+  setOutgoingChars,
+}) {
 
-  // Capture and display!
-  return (
-    <h1
-      onKeyDown={e => {
-        const key = e.key;
-        if (key === 'Escape') {
-          resetTyping();
-        } else if (key === 'Backspace') {
-          deleteTyping(false);
-        } else if (key.length === 1) {
-          insertTyping(key);
+  useKeyPress(key => {
+    if(!playerData.gameEnded) {
+
+      if(!playerData.isPlaying) {
+        dispatch({ type: 'TOGGLE_PLAYING' })
+        dispatch({ type: 'GAME_START_TIME', gameStartTime: Date.now() })
+        dispatch({ type: 'CHANGE_REMAINING_TIME', remainingTime: playerData.duration })
+      }
+      
+      let updatedOutgoingChars = outgoingChars;
+      let updatedIncomingChars = incomingChars;
+      if (key === currentChar) {
+        if (leftPadding.length > 0) {
+          setLeftPadding(leftPadding.substring(1));
         }
-        e.preventDefault();
-      }}
-      tabIndex={0}
-    >
-      {chars.split('').map((char, index) => {
-        let state = charsState[index];
-        let color = state === 0 ? 'black' : state === 1 ? 'green' : 'red';
-        return (
-          <span key={char + index} style={{ color }}>
-            {char}
-          </span>
-        );
-      })}
-    </h1>
+        updatedOutgoingChars += currentChar;
+        setOutgoingChars(updatedOutgoingChars);
+        
+        setCurrentChar(incomingChars.charAt(0));
+        
+        updatedIncomingChars = incomingChars.substring(1);
+      if (updatedIncomingChars.split(' ').length < 10) {
+        updatedIncomingChars += ' ' + generate();
+      }
+      setIncomingChars(updatedIncomingChars);
+      
+      if (incomingChars.charAt(0) === ' ') {
+        setWordCount(prevWordCount => prevWordCount + 1);
+        // console.log((wordCount+1)*60);
+        // console.log(playerData.wpm);
+        const durationInSeconds = (Date.now() - playerData.gameStartTime)/1000;
+        console.log(Math.floor((wordCount+1)*60/durationInSeconds));
+        dispatch({ type: 'CHANGE_WPM', wpm: calculateWPM(playerData.gameStartTime, wordCount) })
+      }
+    }
+    
+    const updatedTypedChars = typedChars + key;
+    setTypedChars(updatedTypedChars);
+    dispatch({ type: 'CHANGE_ACCURACY', accuracy: ((updatedOutgoingChars.length * 100) / updatedTypedChars.length).toFixed(2) })
+  }
+  });
+  
+  return (
+    <div className="typing-area">
+      <p>Sample text for typing...</p>
+      <br></br>
+      <p className="Character">
+        <span className="Character-out">{(leftPadding + outgoingChars).slice(-20)}</span>
+        <span className="Character-current">{currentChar}</span>
+        <span>{incomingChars.substr(0, 20)}</span>
+      </p>
+    </div>
   );
-};
+}
 
 export default Typing;

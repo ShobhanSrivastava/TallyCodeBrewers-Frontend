@@ -1,6 +1,11 @@
-function Clock({ time }) {
-    const minutes = Math.floor(time/60);
-    const seconds = time%60;
+import { PlayerContext } from "../context";
+import { useContext, useState, useEffect } from "react";
+
+function Clock() {
+    const { playerData, dispatch } = useContext(PlayerContext);
+
+    const minutes = Math.floor(playerData.duration/60);
+    const seconds = playerData.duration%60;
 
     return (
         <div>

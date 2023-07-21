@@ -1,16 +1,14 @@
 import { createContext, useReducer } from 'react';
 
-export const PlayerContext = createContext();
+export const TestContext = createContext();
 
-const defaultPlayerData = {
-    difficulty: 0,
-    duration: 30,
-    wpm: null,
-    accuracy: null,
-    isPlaying: false,
-    remainingTime: null,
-    gameStartTime: null,
-    gameEnded: false
+const defaultTestData = {
+    leftPadding: '                    ',
+    currentChar: null,
+    incomingCharacter: null,
+    typedChar: '',
+    outgoingChars: '',
+    wordCount: 0
 }
 
 function reducer(state, action) {
@@ -20,8 +18,6 @@ function reducer(state, action) {
         case 'CHANGE_WPM': return { ...state, wpm: action.wpm }
         case 'CHANGE_ACCURACY': return { ...state, accuracy: action.accuracy }
         case 'TOGGLE_PLAYING': return { ...state, isPlaying: !state.isPlaying }
-        case 'TOGGLE_GAME_ENDED': return { ...state, gameEnded: !state.gameEnded }
-        case 'GAME_START_TIME': return { ...state, gameStartTime: action.gameStartTime }
         case 'CHANGE_REMAINING_TIME': return { ...state, remainingTime: action.remainingTime }
         case 'RESET': return defaultPlayerData
     }

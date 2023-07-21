@@ -1,0 +1,39 @@
+.Character {
+  font-size: xx-large;
+  white-space: pre;
+}
+  
+.Character-current {
+  background-color: #09d3ac;
+}
+  
+.Character-out {
+  color: silver;
+}
+
+.result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content button {
+  margin-top: 20px;
+}
