@@ -1,10 +1,12 @@
 function DifficultySelector({ playerData, dispatch }) {
     return (
-    <div>
-        { playerData.difficulty }
-        <div onClick={()=>dispatch({type: 'CHANGE_DIFFICULTY', difficulty: 0})}>Noob</div>
-        <div onClick={()=>dispatch({type: 'CHANGE_DIFFICULTY', difficulty: 1})}>Pro</div>
-        <div onClick={()=>dispatch({type: 'CHANGE_DIFFICULTY', difficulty: 2})}>Ultra Pro</div>
+    <div className="difficulty">
+        <div>Difficulty:</div>
+        
+        ({ playerData.difficulty })
+        <button onClick={()=>dispatch({type: 'CHANGE_DIFFICULTY', difficulty: 0})}>Noob</button>
+        <button onClick={()=>dispatch({type: 'CHANGE_DIFFICULTY', difficulty: 1})}>Pro</button>
+        <button onClick={()=>dispatch({type: 'CHANGE_DIFFICULTY', difficulty: 2})}>Ultra Pro</button>
     </div>
 )}
 

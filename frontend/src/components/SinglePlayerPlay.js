@@ -49,15 +49,21 @@ function SinglePlayerPlay() {
 
     return (
         <>
-            <DifficultySelector playerData={playerData} dispatch={dispatch} />
-            <DurationSelector playerData={playerData} dispatch={dispatch} />
-            <Clock playerData={playerData} time={playerData.duration} />
-            <Stats playerData={playerData} />
+          <div className="singlePlayerPlay">
+            <div className="subNavbar">
+              <DifficultySelector playerData={playerData} dispatch={dispatch} />
+              <DurationSelector playerData={playerData} dispatch={dispatch} />
+            </div>
+            <div className="statsBoxWithTime">
+              <Stats playerData={playerData} />
+              <Clock playerData={playerData} time={playerData.duration} />
+            </div>
 
             {playerData.gameEnded && (
                 <SinglePlayerResult wpm={playerData.wpm} accuracy={playerData.accuracy} onClick={handleButtonClick}/> 
             )}
-
+            <br></br>
+            <br></br> 
             <Typing 
                 playerData={playerData} 
                 wordCount={wordCount} 
@@ -75,6 +81,7 @@ function SinglePlayerPlay() {
                 outgoingChars={outgoingChars}
                 setOutgoingChars={setOutgoingChars}
             />
+          </div>
         </>
     )
 }

@@ -4,12 +4,13 @@ function DurationSelector({ playerData, dispatch }) {
     }
 
     return (
-    <div>
-        { playerData.duration }
-        <div onClick={()=>handleClick(30)}>30s</div>
-        <div onClick={()=>handleClick(45)}>45s</div>
-        <div onClick={()=>handleClick(60)}>60s</div>
-        <div onClick={()=>handleClick(120)}>120s</div>
+        <div className="duration">
+        <div>Duration:</div>
+        ({ playerData.duration })
+        <button onClick={()=>handleClick(30)}>30s</button>
+        <button onClick={()=>handleClick(45)}>45s</button>
+        <button onClick={()=>handleClick(60)}>60s</button>
+        <button onClick={()=>handleClick(120)}>120s</button>
     </div>
 )}
 
