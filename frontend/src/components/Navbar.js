@@ -1,44 +1,43 @@
+import { useNavigate } from 'react-router-dom';
 import { useContext, useRef } from 'react';
 import Switch from 'react-switch';
-import { GlobalStateContext, ThemeContext } from '../context';
+import { PlayerContext, ThemeContext } from '../context';
 
 
 function Navbar() {
-    const { globalData, dispatch } = useContext(GlobalStateContext);
+    const { playerData, dispatch } = useContext(PlayerContext);
     const { theme, toggleTheme } = useContext(ThemeContext);
 
-    const { playerMode } = globalData;
-    const switchRef = useRef(null);
+    const navigate = useNavigate();
+
+    const { mode } = playerData;
+    function handleChange() {
+        const path = mode === 'single' ? '/multiplayer' : '/';
+        dispatch({type: 'CHANGE_PLAYER_MODE'})
+        switchRef.current.focus();
+        navigate(path);
+    }
+
     return (
-        <div className="navbar" style={{ backgroundColor: '' }}>
-            <h1>HeavyTyper</h1>
+        <div style={{ backgroundColor: '' }}>
+            HeavyTyper { mode }
+
             {/* To change the theme of the application */}
-            <div className="toggle-switch">
-                <div className="ele toggle-theme" onClick={toggleTheme}>{ theme.themeName === 'light' ? 'Light' : 'Dark' }</div>
-                <div className="ele">Solo</div>
-                <button ref={switchRef} style={{display:'hidden', border:0}}>
-                </button>
-                <div className="ele">
-                    <Switch 
-                        checked={playerMode === 'multi'}
-                        onChange={(e) => {
-                                dispatch({type: 'CHANGE_PLAYER_MODE'})
-                                switchRef.current.focus();
-                                console.log(e);
-                            }
-                        }
-                        // ref={switchRef}
-                        onColor='#7D7C80' 
-                        offColor='#7D7C80' 
-                        height={20}
-                        width={40}
-                        uncheckedIcon={false}
-                        checkedIcon={false}
-                    />
-                </div>
-                <div className="ele">Multiplayer</div>
-            </div>
-            
+            <div onClick={toggleTheme}>{ theme.themeName === 'light' ? 'Dark' : 'Light' }</div>
+
+            Solo
+            <button ref={switchRef} style={{display:'hidden', border:0}}></button>
+            <Switch 
+                checked={mode === 'multi'}
+                onChange={handleChange} 
+                onColor='#7D7C80' 
+                offColor='#7D7C80' 
+                height={20}
+                width={40}
+                uncheckedIcon={false}
+                checkedIcon={false}
+            />
+            Multiplayer
         </div>
     );
 }

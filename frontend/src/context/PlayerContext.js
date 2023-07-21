@@ -3,6 +3,7 @@ import { createContext, useReducer } from 'react';
 export const PlayerContext = createContext();
 
 const defaultPlayerData = {
+    mode: 'single',
     difficulty: 0,
     duration: 30,
     wpm: null,
@@ -15,6 +16,11 @@ const defaultPlayerData = {
 
 function reducer(state, action) {
     switch(action.type) {
+        case 'CHANGE_MODE': {
+            let newPlayerMode = 'single';
+            if(state.mode === 'single') newPlayerMode = 'multi'
+            return { ...defaultPlayerData, mode: newPlayerMode }
+        }
         case 'CHANGE_DIFFICULTY': return { ...state, difficulty: action.difficulty }
         case 'CHANGE_DURATION': return { ...state, duration: action.duration }
         case 'CHANGE_WPM': return { ...state, wpm: action.wpm }

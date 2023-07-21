@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { DifficultySelector, DurationSelector, Stats, Clock, Typing, SinglePlayerResult } from "../components";
-import { PlayerContext } from "../context";
+import { PlayerContext, ThemeContext } from "../context";
 import { calculateWPM } from "../utils/utilFunctions";
 import { generate } from "../utils/words";
 
@@ -17,14 +17,15 @@ function SinglePlayerPlay() {
     const [typedChars, setTypedChars] = useState('');
     const [outgoingChars, setOutgoingChars] = useState('');
 
+    const timeoutRef = useRef(null);
+
     useEffect(() => {
         if (playerData.isPlaying) {
-          let timeout;
           dispatch({ type: 'CHANGE_WPM', wpm: calculateWPM(playerData.gameStartTime, wordCount) });
       
-          timeout = setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             if (playerData.duration === 0) {
-              clearTimeout(timeout);
+              clearTimeout(timeoutRef.current);
               dispatch({ type: 'TOGGLE_PLAYING' });
               dispatch({ type: 'TOGGLE_GAME_ENDED' });
             } else {
@@ -33,10 +34,15 @@ function SinglePlayerPlay() {
             }
           }, 1000);
         }
+
+        return () => {
+          clearTimeout(timeoutRef.current);
+        }
       }, [playerData.isPlaying, playerData.duration]);
 
     function handleButtonClick() {
         initialWords = generate();
+        clearTimeout(timeoutRef.current);
 
         dispatch({ type: 'RESET' });
         setLeftPadding(new Array(20).fill(' ').join(''));

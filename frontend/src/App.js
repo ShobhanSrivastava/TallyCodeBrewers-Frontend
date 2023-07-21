@@ -14,7 +14,7 @@ function App() {
                         <Navbar />
                         <Routes> 
                             <Route exact path='/' element={<SoloMode />} />
-                            <Route exact path='/find' element={<Start />} />
+                            <Route exact path='/multiplayer' element={<Start />} />
                         </Routes>
                     </Router>
                 </PlayerProvider>

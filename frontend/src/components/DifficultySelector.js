@@ -1,7 +1,7 @@
-function DifficultySelector({ playerData, dispatch }) {
+function DifficultySelector({ playerData, dispatch, cleaningFunction }) {
     function handleClick(difficulty) {
+        cleaningFunction
         dispatch({type: 'CHANGE_DIFFICULTY', difficulty });
-
     }
     return (
     <div className="difficulty">
