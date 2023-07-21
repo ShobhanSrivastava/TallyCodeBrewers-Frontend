@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');  
+
+*{
+  margin:0;
+  padding:0;
+  font-family: "Quicksand";
+  color: #333;
+  box-sizing: border-box;
+}
+
+/*Navbar*/
+.navbar{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+/* Toggle-switch */
+.toggle-switch{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+}
+.toggle-switch .ele{
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+
+
+/* Difficulty */
+.difficulty{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.difficulty button{
+  margin-left: 5px;
+  text-decoration: none;
+  border: none;
+  background-color: white;
+  padding: 6px;
+}
+.difficulty button:hover{
+  color: #09d3ac;
+  cursor: pointer;
+}
+
+
+
+/* Duration */
+.duration{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.duration button{
+  margin-left: 5px;
+  text-decoration: none;
+  border: none;
+  background-color: white;
+  padding: 6px;
+}
+.duration button:hover{
+  color: #09d3ac;
+  cursor: pointer;
+}
+
+/* SubNavbar */
+.subNavbar{
+  padding: 60px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* StatsBoxWithTime */
+.statsBoxWithTime{
+  padding: 20px;
+  display: flex;
+  justify-content: space-between  ;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-box{
+  width: 200px;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.stats-box div {
+  text-align: center;
+}
+
+.stats-box h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.stats-box p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Separator line between WPM and Accuracy */
+.separator {
+  width: 1px;
+  height: 40px;
+  background-color: #ccc;
+  margin: 0 20px;
+}
+
+/* Timer styles */
+.timer {
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.timer h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* TypingArea styles */
+.typing-area {
+  margin-top: 20px;
+  width: 80%;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+  resize: none;
+  max-width: 1200px;
+  margin:0 auto;
+}
+
+.App {
+  text-align: center;
+  font-family: monospace;
+}
+.Character {
+  font-size: xx-large;
+  white-space: pre;
+}
+
+.Character-current {
+  background-color: #09d3ac;
+}
+
+.Character-out {
+  color: silver;
+}
+
+/* In your CSS file */
+.result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content button {
+  margin-top: 20px;
+}
