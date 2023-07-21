@@ -1,23 +1,33 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Switch from 'react-switch';
-import { GlobalStateContext, ThemeContext } from '../context';
+import { PlayerContext, ThemeContext } from '../context';
 
 function Navbar() {
-    const { globalData, dispatch } = useContext(GlobalStateContext);
+    const { playerData, dispatch } = useContext(PlayerContext);
     const { theme, toggleTheme } = useContext(ThemeContext);
 
-    const { playerMode } = globalData;
+    const navigate = useNavigate();
+
+    const { mode } = playerData;
+    function handleChange() {
+        const path = mode === 'single' ? '/multiplayer' : '/';
+        navigate(path);
+        dispatch({ type: 'CHANGE_MODE' })
+        // e.target.blur();
+    }
+
     return (
         <div style={{ backgroundColor: '' }}>
-            HeavyTyper
+            HeavyTyper { mode }
 
             {/* To change the theme of the application */}
-            <div onClick={toggleTheme}>{ theme.themeName === 'light' ? 'Light' : 'Dark' }</div>
+            <div onClick={toggleTheme}>{ theme.themeName === 'light' ? 'Dark' : 'Light' }</div>
 
             Single Player
             <Switch 
-                checked={playerMode === 'multi'}
-                onChange={()=>dispatch({type: 'CHANGE_PLAYER_MODE'})} 
+                checked={mode === 'multi'}
+                onChange={handleChange} 
                 onColor='#7D7C80' 
                 offColor='#7D7C80' 
                 height={20}

@@ -9,8 +9,6 @@ function SinglePlayerPlay() {
 
     const { playerData, dispatch } = useContext(PlayerContext);
 
-    const { theme } = useContext(ThemeContext);
-
     // TODO: Create useReducer to manage state. Remove useState
     const [wordCount, setWordCount] = useState(0);
     const [leftPadding, setLeftPadding] = useState(new Array(20).fill(' ').join(''));
@@ -61,8 +59,6 @@ function SinglePlayerPlay() {
             <DurationSelector playerData={playerData} dispatch={dispatch} cleaningFunction={handleButtonClick} />
             <Clock playerData={playerData} time={playerData.duration} />
             <Stats playerData={playerData} />
-
-            <div style={{backgroundColor: theme.primaryColor}}>HELLO</div>
 
             {playerData.gameEnded && (
                 <SinglePlayerResult wpm={playerData.wpm} accuracy={playerData.accuracy} onClick={handleButtonClick}/> 
