@@ -9,7 +9,7 @@ function Clock() {
 
     return (
         <div className="clock">
-            Clock { minutes<10 ? '0' : '' }{minutes}:{ seconds < 10 ? '0' : '' }{seconds}
+            { minutes<10 ? '0' : '' }{minutes}:{ seconds < 10 ? '0' : '' }{seconds}
         </div>
     );
 }
