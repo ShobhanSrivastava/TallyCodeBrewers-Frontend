@@ -11,7 +11,9 @@ const defaultPlayerData = {
     isPlaying: false,
     remainingTime: null,
     gameStartTime: null,
-    gameEnded: false
+    gameEnded: false,
+    socket: null,
+    room: null
 }
 
 function reducer(state, action) {
@@ -29,6 +31,8 @@ function reducer(state, action) {
         case 'TOGGLE_GAME_ENDED': return { ...state, gameEnded: !state.gameEnded }
         case 'GAME_START_TIME': return { ...state, gameStartTime: action.gameStartTime }
         case 'CHANGE_REMAINING_TIME': return { ...state, remainingTime: action.remainingTime }
+        case 'CHANGE_SOCKET': return { ...state, socket: action.socket }
+        case 'CHANGE_ROOM': return { ...state, room: action.room }
         case 'RESET': return defaultPlayerData
     }
     throw Error ('Unknown Action: ' + action.type)
