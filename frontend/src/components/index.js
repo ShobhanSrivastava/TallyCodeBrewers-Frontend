@@ -6,3 +6,4 @@ export { default as Stats } from './Stats';
 export { default as Clock } from './Clock';
 export { default as Typing } from './Typing';
 export { default as SinglePlayerResult } from './SinglePlayerResult';
+export { default as StartGame } from './StartGame';

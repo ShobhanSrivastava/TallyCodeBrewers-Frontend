@@ -1,14 +1,26 @@
+import { useNavigate } from 'react-router-dom';
 import { useContext, useRef } from 'react';
 import Switch from 'react-switch';
-import { GlobalStateContext, ThemeContext } from '../context';
-
+import { PlayerContext, ThemeContext } from '../context';
+import toast from 'react-hot-toast';
 
 function Navbar() {
-    const { globalData, dispatch } = useContext(GlobalStateContext);
+    const { playerData, dispatch } = useContext(PlayerContext);
     const { theme, toggleTheme } = useContext(ThemeContext);
 
-    const { playerMode } = globalData;
+    const navigate = useNavigate();
+
+    const { mode } = playerData;
     const switchRef = useRef(null);
+
+    function handleChange() {
+        const path = mode === 'single' ? '/multiplayer' : '/';
+        dispatch({ type: 'CHANGE_MODE' })
+        switchRef.current.focus();
+        toast.success("Game mode changed");
+        navigate(path);
+    }
+
     return (
         <div className="navbar" style={{ backgroundColor: '' }}>
             <h1>HeavyTyper</h1>
@@ -20,13 +32,8 @@ function Navbar() {
                 </button>
                 <div className="ele">
                     <Switch 
-                        checked={playerMode === 'multi'}
-                        onChange={(e) => {
-                                dispatch({type: 'CHANGE_PLAYER_MODE'})
-                                switchRef.current.focus();
-                                console.log(e);
-                            }
-                        }
+                        checked={mode === 'multi'}
+                        onChange={handleChange}
                         // ref={switchRef}
                         onColor='#7D7C80' 
                         offColor='#7D7C80' 
