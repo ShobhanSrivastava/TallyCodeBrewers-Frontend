@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { generateUsername } from "../utils/uniqueNameGenerator";
 import initSocket from '../socket';
 import toast from 'react-hot-toast';
-import { EVENTS } from '../utils/actions';
+// import { EVENTS } from '../utils/actions';
 import { PlayerContext } from '../context';
 import DifficultySelector from './DifficultySelector';
 
@@ -14,7 +14,6 @@ function StartGame() {
 
     let randomUsername = generateUsername();
     const [username, setUsername] = useState(randomUsername);
-    const [room, setRoom] = useState('');
     const [socket, setSocket] = useState(null);
 
     function handleClick() {
@@ -27,9 +26,17 @@ function StartGame() {
         if(socket) return;
         
         const newSocket = initSocket();
+        console.log(newSocket);
+        
         setSocket(newSocket);
 
-        newSocket.emit('join_room', { username, difficulty: playerData.difficulty });
+        newSocket.emit('create_room', { username, difficulty: playerData.difficulty });
+        console.log(socket);
+        newSocket.on('create_room_success', (data) => {
+            const { room, roomID } = data;
+            dispatch({ type: 'CHANGE_ROOM', room });
+            // navigate(`/lobby/${roomID}`)
+        });
     }
 
     return (
