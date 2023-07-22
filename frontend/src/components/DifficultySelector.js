@@ -1,7 +1,10 @@
+import toast from 'react-hot-toast';
+
 function DifficultySelector({ playerData, dispatch, cleaningFunction }) {
     function handleClick(difficulty) {
         if(cleaningFunction) cleaningFunction()
         dispatch({type: 'CHANGE_DIFFICULTY', difficulty });
+        toast.success('Difficulty changed');
     }
     return (
     <div className="difficulty">

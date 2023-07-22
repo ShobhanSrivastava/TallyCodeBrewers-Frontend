@@ -57,8 +57,8 @@ function SinglePlayerPlay() {
         <>
           <div className="singlePlayerPlay">
             <div className="subNavbar">
-              <DifficultySelector playerData={playerData} dispatch={dispatch} />
-              <DurationSelector playerData={playerData} dispatch={dispatch} />
+              <DifficultySelector playerData={playerData} dispatch={dispatch} cleaningFunction={handleButtonClick} />
+              <DurationSelector playerData={playerData} dispatch={dispatch} cleaningFunction={handleButtonClick} />
             </div>
             <div className="statsBoxWithTime">
               <Stats playerData={playerData} />

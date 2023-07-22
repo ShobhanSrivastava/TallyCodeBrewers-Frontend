@@ -1,8 +1,10 @@
+import toast from 'react-hot-toast';
+
 function DurationSelector({ playerData, dispatch, cleaningFunction }) {
     function handleClick(duration) {
         cleaningFunction();
         dispatch({type: 'CHANGE_DURATION', duration });
-
+        toast.success('Duration changed')
     }
 
     return (
