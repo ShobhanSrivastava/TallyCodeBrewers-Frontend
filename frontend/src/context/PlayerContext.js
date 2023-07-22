@@ -4,6 +4,7 @@ export const PlayerContext = createContext();
 
 const defaultPlayerData = {
     mode: 'single',
+    username: '',
     difficulty: 0,
     duration: 30,
     wpm: null,
@@ -26,6 +27,7 @@ function reducer(state, action) {
         case 'CHANGE_DIFFICULTY': return { ...state, difficulty: action.difficulty }
         case 'CHANGE_DURATION': return { ...state, duration: action.duration }
         case 'CHANGE_WPM': return { ...state, wpm: action.wpm }
+        case 'CHANGE_USERNAME': return { ...state, username: action.username }
         case 'CHANGE_ACCURACY': return { ...state, accuracy: action.accuracy }
         case 'TOGGLE_PLAYING': return { ...state, isPlaying: !state.isPlaying }
         case 'TOGGLE_GAME_ENDED': return { ...state, gameEnded: !state.gameEnded }

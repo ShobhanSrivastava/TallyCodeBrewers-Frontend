@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { generateUsername } from "../utils/uniqueNameGenerator";
 import initSocket from '../socket';
 import toast from 'react-hot-toast';
@@ -9,39 +9,42 @@ import DifficultySelector from './DifficultySelector';
 
 function StartGame() {
     const navigate = useNavigate();
-
     const { playerData, dispatch } = useContext(PlayerContext);
 
     let randomUsername = generateUsername();
-    const [username, setUsername] = useState(randomUsername);
-    const [socket, setSocket] = useState(null);
 
     function handleClick() {
         randomUsername = generateUsername()
-        setUsername(randomUsername);
+        dispatch({ type: 'CHANGE_USERNAME', username: randomUsername });
         toast.success("New username generated")
     }
+    
+    useEffect(() => {
+        dispatch({ type: 'CHANGE_USERNAME', username: randomUsername });
 
-    function handleJoin() {
-        if(socket) return;
-        
+        if(playerData.socket) return;
         const newSocket = initSocket();
-        console.log(newSocket);
-        
-        setSocket(newSocket);
+        dispatch({ type: 'CHANGE_SOCKET', socket: newSocket });
 
-        newSocket.emit('create_room', { username, difficulty: playerData.difficulty });
-        console.log(socket);
         newSocket.on('create_room_success', (data) => {
             const { room, roomID } = data;
             dispatch({ type: 'CHANGE_ROOM', room });
-            // navigate(`/lobby/${roomID}`)
+            navigate(`/lobby/${roomID}`)
         });
+
+        return ()=>{
+            navigate('/multiplayer');
+        }
+    },[]);
+    
+    function handleJoin() {
+        playerData.socket.emit('create_room', { username: playerData.username, difficulty: playerData.difficulty });
     }
 
     return (
         <>
-            Join With Username: { username }
+            <Link to='/join-room'>Join Room</Link>
+            Join With Username: { playerData.username }
             <button onClick={handleClick}>Change User Name</button>
 
             <DifficultySelector playerData={playerData} dispatch={dispatch} />

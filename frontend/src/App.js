@@ -5,9 +5,9 @@ import { Navbar } from './components';
 import { Toaster } from 'react-hot-toast';
 
 import './App.css'
+import JoinRoom from './pages/Multiplayer/JoinRoom';
 
 function App() {
-
     return (
         <ThemeProvider>
             <GlobalStateProvider>
@@ -21,6 +21,7 @@ function App() {
                             <Route exact path='/' element={<SoloMode />} />
                             <Route exact path='/multiplayer' element={<Start />} />
                             <Route exact path='/lobby/:roomID' element={<Lobby />} />
+                            <Route exact path='/join-room' element={<JoinRoom />} />
                         </Routes>
                     </Router>
                 </PlayerProvider>
